@@ -24,6 +24,7 @@ public class MemberController {
     @GetMapping("/members/{memberCode}")
     public ResponseEntity<ResponseDTO> selectMyMemberInfo(@PathVariable int memberCode){
 
+        System.out.println("memberCode = " + memberCode);
         System.out.println("memberCode ===================== " + memberCode);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", memberService.selectMyInfo(memberCode)));
 
