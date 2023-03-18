@@ -57,6 +57,9 @@ public class SecurityConfig {
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/api/v1/members/**").permitAll()
                 .antMatchers("/auth/signup/**").permitAll()
+                .antMatchers("/api/v1/**").permitAll()
+                .antMatchers("/api/v1/notice/**").permitAll()
+
 //                .antMatchers("/api/v1/mypage/**").permitAll()
 //
                 .antMatchers("/api/**").hasAnyRole("MEMBER", "ADMIN")
