@@ -18,9 +18,13 @@ spring:
     resources:
       static-locations: classpath:/noticeimgs/
   jpa:
+    generate-ddl: false
     show-sql: true
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        '[format_sql]': true
 
 jwt:
   secret: l1Z5I9WufSD5qM0UTHXDJa1kaGxBlyhKMbx+ONkqzeRTlKdF8Bq37mA3Z8nhjRlwVUrL/u3bdkFeamIrUoWvVw==

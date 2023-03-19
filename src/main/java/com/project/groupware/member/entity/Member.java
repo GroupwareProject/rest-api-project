@@ -81,4 +81,5 @@ public class Member {
                 ", memberRole=" + memberRole +
                 '}';
     }
+
 }
