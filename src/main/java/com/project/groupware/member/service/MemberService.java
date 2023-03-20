@@ -9,9 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,6 +56,7 @@ public class MemberService {
     }
 
     //  회원 수정(관리자모드)
+    @Transactional
     public Object updateMember(MemberDTO memberDTO, int memberCode) {
         log.info("[MemberService] updateMember Start ======");
         System.out.println("memberDTO =============================== " + memberDTO);
@@ -89,19 +92,23 @@ public class MemberService {
     }
 
     //  회원 삭제(관리자모드)
-    public Object deleteMember(int memberCode) {
+    @Transactional
+    public String deleteMember(int memberCode) {
 
         log.info("[MemberService] deleteMember Start ======");
 
         System.out.println("memberCode = " + memberCode);
 
-//        Member member = memberRepository.findByMemberCode(memberCode);
-//
-//        System.out.println("member ========== " + member);
+        Optional<Member> member = memberRepository.findById(memberCode);
+
+        System.out.println("member ========== " + member);
         int result = 0;
 
+
         try {
-            memberRepository.deleteByMemberCode(memberCode);
+//            memberRepository.deleteByMemberCode(memberCode);
+            //memberRepository.delete(member.get());
+            memberRepository.deleteById(member.get().getMemberCode());
             result = 1;
         } catch (Exception e){
             log.error("[MemberService] deleteMember 에러", e);

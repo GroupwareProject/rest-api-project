@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.zip.Checksum;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
-    Member findByMemberCode(long memberCode);
+    Member findByMemberCode(int memberCode);
 
 //    Member findByMemberName(String memberName);
 
     @Query("SELECT MAX(m.memberCode) FROM Member m")
     int maxMemberCode();
 
-    void deleteByMemberCode(int memberCode);
+//    void deleteByMemberCode(long memberCode);
 }

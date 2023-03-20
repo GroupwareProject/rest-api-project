@@ -6,6 +6,7 @@ import com.project.groupware.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,6 +52,7 @@ public class MemberController {
     }
 
     //  회원 삭제(관리자모드)
+
     @Operation(summary = "회원 삭제 요청", description = "회원 정보가 삭제됩니다.", tags = {"MemberController"})
     @DeleteMapping ("/members/delete/{memberCode}")
     public ResponseEntity<ResponseDTO> deleteMember(@PathVariable int memberCode){

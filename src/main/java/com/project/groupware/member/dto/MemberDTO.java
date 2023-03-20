@@ -16,7 +16,7 @@ import java.util.List;
 @ToString
 public class MemberDTO implements UserDetails {
 
-    private long memberCode;
+    private int memberCode;
     private String memberPwd;
     private String memberName;
     private Date memberBirth;
