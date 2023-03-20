@@ -39,7 +39,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 	@Transactional
 	@Override
 	public UserDetails loadUserByUsername(String memberCode) throws UsernameNotFoundException {
-		Member member = memberRepository.findByMemberCode(Long.parseLong(memberCode));
+		Member member = memberRepository.findByMemberCode(Integer.parseInt(memberCode));
 		
 		/* MemberDTO는 엔티티를 옮겨 담는 DTO이자 UserDetails이다. */ 
 		MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);

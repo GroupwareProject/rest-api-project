@@ -1,5 +1,6 @@
 package com.project.groupware.member.dto;
 
+import com.project.groupware.member.entity.Member;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,7 @@ import java.util.List;
 @ToString
 public class MemberDTO implements UserDetails {
 
-    private long memberCode;
+    private int memberCode;
     private String memberPwd;
     private String memberName;
     private Date memberBirth;
@@ -70,7 +71,7 @@ public class MemberDTO implements UserDetails {
         // TODO Auto-generated method stub
         return false;
     }
-
-
+    public void delete(Member member) {
+    }
 }
 

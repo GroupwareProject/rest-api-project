@@ -20,7 +20,7 @@ public class Member {
     @Id
     @Column(name = "MEMBER_CODE")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long memberCode;
+    private int memberCode;
 
     @Column(name = "MEMBER_PWD")
     private String memberPwd;
@@ -81,4 +81,5 @@ public class Member {
                 ", memberRole=" + memberRole +
                 '}';
     }
+
 }
