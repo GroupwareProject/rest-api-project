@@ -2,6 +2,7 @@ package com.project.groupware.notice.controller;
 
 import com.project.groupware.common.ResponseDTO;
 import com.project.groupware.notice.dto.NoticeDTO;
+import com.project.groupware.notice.entity.Notice;
 import com.project.groupware.notice.service.NoticeService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class NoticeController {
 
 
     /* 공지 조회 */
+    @Operation(summary = "공지사항 전체 조회 요청", description = "게시판 전체 조회를 요청합니다.")
     @GetMapping("/notice")
     public ResponseEntity<ResponseDTO> noticeList() {
 
@@ -34,6 +36,7 @@ public class NoticeController {
 
     }
 
+    @Operation(summary = "공지사항 상세조회 요청", description = "게시판 상세페이지 조회를 요청합니다.")
     @GetMapping("/notice/{noticeNo}")
     public ResponseEntity<ResponseDTO> noticeSelectList(@PathVariable Long noticeNo) {
 
@@ -53,14 +56,17 @@ public class NoticeController {
 
     }
 
+
     /* 공지사항 Update */
-    @PutMapping(value ="/notice/detail")
-    public ResponseEntity<ResponseDTO> updateMember(@RequestBody NoticeDTO noticeDTO){
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "공지사항 수정 성공", noticeService.updateNotice(noticeDTO)));
+    @Operation(summary = " 공지사항 수정 요청", description = "공지사항 수정이 진행 됩니다.")
+    @PatchMapping("/notice/detail/{noticeNo}")
+    public ResponseEntity<Notice> updateNotice(@RequestBody NoticeDTO noticeDTO, @PathVariable Long noticeNo) {
+
+        return ResponseEntity.ok(noticeService.updateNotice(noticeNo, noticeDTO));
     }
 
-
     /* 공지사항 Delete */
+    @Operation(summary = " 공지사항 삭제 요청", description = "공지사항 삭제가 진행됩니다.")
     @DeleteMapping(value = "/notice/detail/{noticeNo}")
     public ResponseEntity<?> deleteNotice(@PathVariable Long noticeNo){
         NoticeDTO noticeDTO = new NoticeDTO();

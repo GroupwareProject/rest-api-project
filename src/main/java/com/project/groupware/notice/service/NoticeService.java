@@ -63,28 +63,24 @@ public class NoticeService {
     }
 
 
-
     @Transactional
-    public Object updateNotice(NoticeDTO noticeDTO) {
+    public Notice updateNotice(Long noticeNo, NoticeDTO noticeDTO) {
 
-        log.info("[noticeService] UpdateNotice Start");
-        Optional<Notice> optionalNotice = noticeRepository.findById(noticeDTO.getNoticeNo());
+        Optional<Notice> optionalNotice = noticeRepository.findById(noticeNo);
+
         if (!optionalNotice.isPresent()) {
-            throw new EntityNotFoundException(
-                    "notice not "
-            );
+            throw new EntityNotFoundException( "notice not present");
 
         }
 
         Notice notice = optionalNotice.get();
+        notice.setNoticeTitle(noticeDTO.getNoticeTitle());
+        notice.setNoticeContent(noticeDTO.getNoticeContent());
 
-        notice.setNoticeTitle(notice.getNoticeTitle());
-        notice.setNoticeContent(notice.getNoticeContent());
-
-        log.info("[noticeService] UpdateNotice End");
         return noticeRepository.save(notice);
 
     }
+
     public ResponseEntity<?> deleteNotice(NoticeDTO noticeDTO) {
         log.info("[noticeService] deleteNotice Start");
 
@@ -96,5 +92,11 @@ public class NoticeService {
 
         return ResponseEntity.ok().build();
     }
+
+
+
+
+
+
 
 }

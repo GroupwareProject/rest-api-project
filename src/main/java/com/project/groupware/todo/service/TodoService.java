@@ -58,26 +58,7 @@ public class TodoService {
         return modelMapper.map(savedTodo, TodoDTO.class);
     }
 
-    @Transactional
-    public Object updateTodo(TodoDTO todoDTO) {
 
-        log.info("[todoService] updateTodo start");
-        Optional<Todo> optionalNotice = todoRepository.findById(todoDTO.getTodoNo());
-        if (!optionalNotice.isPresent()) {
-            throw new EntityNotFoundException(
-                    "todo not "
-            );
-
-        }
-
-        Todo todo = optionalNotice.get();
-
-        todo.setTodoTitle(todo.getTodoTitle());
-        todo.setTodoContent(todo.getTodoContent());
-
-        log.info("[noticeService] UpdateNotice End");
-        return todoRepository.save(todo);
-    }
 
     @Transactional
     public ResponseEntity<?> deleteTodo(TodoDTO todoDTO) {
@@ -93,4 +74,20 @@ public class TodoService {
 
     }
 
+    public Todo updateTodo(Long todoNo, TodoDTO todoDTO) {
+
+        Optional<Todo> optionalTodo = todoRepository.findById(todoNo);
+
+        if (!optionalTodo.isPresent()) {
+            throw new EntityNotFoundException( "todo not present");
+
+        }
+
+        Todo todo = optionalTodo.get();
+        todo.setTodoTitle(todoDTO.getTodoTitle());
+        todo.setTodoContent(todoDTO.getTodoContent());
+
+        return todoRepository.save(todo);
+
+    }
 }
