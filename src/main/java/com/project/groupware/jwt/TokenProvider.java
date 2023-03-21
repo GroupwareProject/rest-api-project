@@ -70,7 +70,7 @@ public class TokenProvider {
 
         log.info("[TokenProvider] generateTokenDTO End ===============================");
 
-        return new TokenDTO(BEARER_TYPE, member.getMemberName(), accessToken,
+        return new TokenDTO(BEARER_TYPE, String.valueOf(member.getMemberCode()), accessToken,
                 accessTokenExpiresIn.getTime());
     }
 

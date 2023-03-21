@@ -7,15 +7,15 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.io.IOException;
+import javax.validation.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +32,6 @@ public class NoticeService {
         this.modelMapper = modelMapper;
     }
 
-
     public List<NoticeDTO> selectList() {
 
         List<Notice> selectNoticeList = noticeRepository.findAll();
@@ -40,43 +39,16 @@ public class NoticeService {
         return selectNoticeList.stream().map(notice -> modelMapper.map(notice, NoticeDTO.class)).collect(Collectors.toList());
     }
 
+    public Object selectNotice(Long noticeNo) {
 
-//    @Transactional @@ content cannot be null
-//    public Notice createNotice(NoticeDTO noticeDTO) {
-//
-//        Notice createNotice = modelMapper.map(noticeDTO, Notice.class);
-//        noticeRepository.save(createNotice);
-//
-//        return createNotice;
-//    }
+        log.info("[noticeService] 개인조회 start");
 
-//    @Transactional  date
-//    public Object insertNotice(NoticeDTO noticeDTO) {
-//
-//        log.info("[insertservice] insertnotice start=====");
-//        log.info("[noticeservice] noticeDTO: " + noticeDTO );
-//
-//        int result = 0;
-//
-//        try {
-//            Notice insertNotice = modelMapper.map(noticeDTO, Notice.class);
-//
-//            noticeRepository.save(insertNotice);
-//
-//            result = 1;
-//        } catch (Exception e) {
-//
-//            throw new RuntimeException(e);
-//        }
-//
-//        return (result > 0) ? "공지사항 등록 성공" : "공지사항 등록 실패";
-//    }
+        Notice notice = noticeRepository.findById(noticeNo).get();
 
-//    @Transactional
-//    public Notice createNotice(Notice notice) {
-//        Notice saveNotice = noticeRepository.save(notice);
-//        return saveNotice;
-//    }
+        log.info("[noticeService] 개인조회 end");
+        return modelMapper.map(notice, Notice.class);
+    }
+
 
     @Transactional
     public NoticeDTO insertNotice(NoticeDTO noticeDTO) {
@@ -90,29 +62,23 @@ public class NoticeService {
         return modelMapper.map(savedNotice, NoticeDTO.class);
     }
 
+
     @Transactional
-    public Object updateNotice(NoticeDTO noticeDTO) {
+    public Notice updateNotice(Long noticeNo, NoticeDTO noticeDTO) {
 
-        log.info("[noticeService] updateNotice Start");
-        log.info("[noticeService] noticeDTO : " + noticeDTO);
+        Optional<Notice> optionalNotice = noticeRepository.findById(noticeNo);
 
-        int result = 0;
-        try {
-            Notice notice = noticeRepository.findById(noticeDTO.getNoticeNo()).get();
+        if (!optionalNotice.isPresent()) {
+            throw new EntityNotFoundException( "notice not present");
 
-            notice.setNoticeTitle(noticeDTO.getNoticeTitle());
-            notice.setNoticeContent(noticeDTO.getNoticeContent());
-
-            noticeRepository.save(notice);
-            result = 1;
-        } catch (Exception e) {
-            log.info("[updateNotice] exception");
-
-            throw new RuntimeException(e);
         }
 
-        log.info("[noticeService] updateNotice end");
-        return (result > 0) ? "공지사항 업데이트 성공" : " 공지사항 업데이트 실패";
+        Notice notice = optionalNotice.get();
+        notice.setNoticeTitle(noticeDTO.getNoticeTitle());
+        notice.setNoticeContent(noticeDTO.getNoticeContent());
+
+        return noticeRepository.save(notice);
+
     }
 
     public ResponseEntity<?> deleteNotice(NoticeDTO noticeDTO) {
@@ -127,33 +93,10 @@ public class NoticeService {
         return ResponseEntity.ok().build();
     }
 
-//    delete 성공본
-//    public void deleteNotice(NoticeDTO noticeDTO) {
-//
-//        log.info("[noticeService] deleteNotice Start");
-//        Notice notice = noticeRepository.findById(noticeDTO.getNoticeNo())
-//                .orElseThrow(() -> new NotFoundException("notice not found"));
-//        noticeRepository.delete(notice);
-//    }
-
-//    @Transactional
-//    public Object deleteNotice(NoticeDTO noticeDTO) {
-//        Notice notice = noticeRepository.deleteById(notice.getNoticeNo());
-//    }
 
 
-//    @Transactional
-//    public ResponseEntity<?> deleteNoticeById(Long noticeNo) {
-//        log.info("[deleteNoticeService] start");
-//
-//        try {
-//            noticeRepository.deleteById(noticeNo);
-//            return ResponseEntity.ok().build();
-//        } catch (EmptyResultDataAccessException e) {
-//            return ResponseEntity.notFound().build();
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
+
+
+
 
 }

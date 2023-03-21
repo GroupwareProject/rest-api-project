@@ -16,9 +16,9 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
 
-#  web:
-#    resources:
-#      static-locations: classpath:/noticeimgs/
+  web:
+    resources:
+      static-locations: classpath:/noticeimgs/
   jpa:
     generate-ddl: false
     show-sql: true
@@ -36,3 +36,6 @@ jwt:
 logging:
   level:
     root: info
+#
+#    image-dir: /noticeimgs
+#    image-url:

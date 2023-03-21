@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,6 +15,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert
+@DynamicUpdate
 @Entity
 @Table(name = "tbl_member", catalog = "finaldb")
 public class Member {
@@ -29,7 +33,7 @@ public class Member {
     private String memberName;
 
     @Column(name = "MEMBER_BIRTH")
-    private Date memberBirth;
+    private String memberBirth;
 
     @Column(name = "MEMBER_PHONE")
     private String memberPhone;
@@ -50,16 +54,16 @@ public class Member {
     private String memberExtension;
 
     @Column(name = "MEMBER_STARTDATE")
-    private Date memberStartDate;
+    private String memberStartDate;
 
     @Column(name = "MEMBER_ENDDATE")
-    private Date memberEndDate;
+    private String memberEndDate;
 
     @Column(name = "MEMBER_ISOUT")
     private int memberIsOut;
 
     @OneToMany
-    @JoinColumn(name = "MEMBER_CODE")
+    @JoinColumn(name = "MEMBER_CODE", insertable = false, updatable = false)
     private List<MemberRole> memberRole;
 
     @Override
