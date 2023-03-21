@@ -57,14 +57,14 @@ public class MemberService {
 
     //  회원 수정(관리자모드)
     @Transactional
-    public Object updateMember(MemberDTO memberDTO, int memberCode) {
+    public Object updateMember(MemberDTO memberDTO) {
         log.info("[MemberService] updateMember Start ======");
         System.out.println("memberDTO =============================== " + memberDTO);
 
         int result = 0;
 
         try {
-            Member member = memberRepository.findByMemberCode(memberCode);
+            Member member = memberRepository.findByMemberCode(memberDTO.getMemberCode());
 
             member.setMemberCode(memberDTO.getMemberCode());
             member.setDeptCode(memberDTO.getDeptCode());
@@ -104,7 +104,6 @@ public class MemberService {
         System.out.println("member ========== " + member);
         int result = 0;
 
-
         try {
 //            memberRepository.deleteByMemberCode(memberCode);
             //memberRepository.delete(member.get());
@@ -115,6 +114,25 @@ public class MemberService {
         }
         return (result > 0) ? "회원 삭제 성공 :)" : "회원 삭제 실패 :(";
     }
+
+
+    // 확인용
+//    @Transactional
+//    public String deleteMember(MemberDTO memberDTO, int memberCode) {
+//
+//        log.info("[MemberService] deleteMember Start ======");
+//
+////        Optional<Member> member = memberRepository.findById(memberCode);
+//        int result = 0;
+//
+//        try {
+//            memberRepository.deleteById(memberDTO.getMemberCode());
+//            result = 1;
+//        } catch (Exception e){
+//            log.error("[MemberService] deleteMember 에러", e);
+//        }
+//        return (result > 0) ? "회원 삭제 성공 :)" : "회원 삭제 실패 :(";
+//    }
 }
 
 
