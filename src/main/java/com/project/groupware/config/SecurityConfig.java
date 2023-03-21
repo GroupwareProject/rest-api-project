@@ -56,9 +56,11 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/api/v1/members/**").permitAll()
-                .antMatchers("/api/v1/members/update/**").permitAll()
-                .antMatchers("/api/v1/members/delete/**").permitAll()
-                .antMatchers("/auth/signup/**").permitAll()
+                .antMatchers("/api/v1/members/update/**").access("hasRole('ADMIN')") // 회원수정
+                .antMatchers("/api/v1/members/delete/**").access("hasRole('ADMIN')") // 회원삭제
+                .antMatchers(HttpMethod.POST, "/auth/signup/**").access("hasRole('ADMIN')") // 회원등록
+                .antMatchers(HttpMethod.PUT, "/auth/signup/**").access("hasRole('ADMIN')") // 회원등록
+                .antMatchers(HttpMethod.DELETE, "/auth/signup/**").access("hasRole('ADMIN')") // 회원등록
                 .antMatchers("/api/v1/**").permitAll()
                 .antMatchers("/api/v1/notice/**").permitAll()
 
