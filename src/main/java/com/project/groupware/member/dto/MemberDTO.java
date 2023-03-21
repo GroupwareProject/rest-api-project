@@ -19,15 +19,15 @@ public class MemberDTO implements UserDetails {
     private int memberCode;
     private String memberPwd;
     private String memberName;
-    private Date memberBirth;
+    private String memberBirth;
     private String memberPhone;
     private String memberEmail;
     private String memberAddress;
     private String deptCode;
     private String jobCode;
     private String memberExtension;
-    private Date memberStartDate;
-    private Date memberEndDate;
+    private String memberStartDate;
+    private String memberEndDate;
     private int memberIsOut;
 
     private List<MemberRoleDTO> memberRole;
