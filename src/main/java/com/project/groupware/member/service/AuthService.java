@@ -47,13 +47,10 @@ public class AuthService {
         if(member == null) {
             throw new LoginFailedException(memberDTO.getMemberCode() + "를 찾을 수 없습니다.");
         }
-
-
         if(!passwordEncoder.matches(memberDTO.getMemberPwd(), member.getMemberPwd())) {
             log.info("[AuthService] Password Match Fail!!!");
             throw new LoginFailedException("잘못된 비밀번호 입니다.");
         }
-
         TokenDTO tokenDTO = tokenProvider.generateTokenDTO(member);
         log.info("[AuthService] tokenDTO {}", tokenDTO);
 

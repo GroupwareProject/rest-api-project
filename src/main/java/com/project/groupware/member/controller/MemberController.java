@@ -22,33 +22,39 @@ public class MemberController {
     }
 
 //   회원 조회(개인정보)
-    @Operation(summary = "회원 한 명 조회 요청", description = "회원 한 명이 조회됩니다.", tags = {"MemberController"})
+    @Operation(summary = "회원 한 명 조회 요청",
+            description = "회원 한 명이 조회됩니다.", tags = {"MemberController"})
     @GetMapping("/members/{memberCode}")
     public ResponseEntity<ResponseDTO> selectMyMemberInfo(@PathVariable int memberCode){
 
         System.out.println("memberCode ===================== " + memberCode);
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원 조회 성공", memberService.selectMyInfo(memberCode)));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,
+                "회원 조회 성공", memberService.selectMyInfo(memberCode)));
     }
 
 //   회원 조회(관리자모드)
-    @Operation(summary = "회원 리스트 조회 요청", description = "회원 리스트가 조회됩니다.", tags = {"MemberController"})
+    @Operation(summary = "회원 리스트 조회 요청",
+            description = "회원 리스트가 조회됩니다.", tags = {"MemberController"})
     @GetMapping("/members")
     public ResponseEntity<ResponseDTO> selectMemberList(){
 
         System.out.println("회원 전체 조회 컨트롤러입니다.");
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원 리스트 조회 성공", memberService.selectMemberList()));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,
+                "회원 리스트 조회 성공", memberService.selectMemberList()));
     }
 
 //  회원 수정(관리자모드)
-    @Operation(summary = "회원 수정 요청", description = "회원 정보가 수정됩니다.", tags = {"MemberController"})
+    @Operation(summary = "회원 수정 요청",
+            description = "회원 정보가 수정됩니다.", tags = {"MemberController"})
     @PutMapping(value = "/members/update")
     public ResponseEntity<ResponseDTO> updateMember(@ModelAttribute MemberDTO memberDTO){
-//        System.out.println("memberCode ========================== " + memberCode);
+
         System.out.println("회원 수정 컨트롤러입니다.");
         System.out.println("memberDTO ============= " + memberDTO);
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원 수정 성공", memberService.updateMember(memberDTO)));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,
+                "회원 수정 성공", memberService.updateMember(memberDTO)));
     }
 
     //  회원 삭제(관리자모드)

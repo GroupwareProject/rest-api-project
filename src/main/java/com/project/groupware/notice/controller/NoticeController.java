@@ -37,7 +37,7 @@ public class NoticeController {
     }
 
     @Operation(summary = "공지사항 상세조회 요청", description = "게시판 상세페이지 조회를 요청합니다.")
-    @GetMapping("/notice/{noticeNo}")
+    @GetMapping("/notice/detail/{noticeNo}")
     public ResponseEntity<ResponseDTO> noticeSelectList(@PathVariable Long noticeNo) {
 
 

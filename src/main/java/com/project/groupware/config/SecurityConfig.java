@@ -59,13 +59,20 @@ public class SecurityConfig {
                 .antMatchers("/api/v1/members/update/**").permitAll()
                 .antMatchers("/api/v1/members/delete/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/auth/signup/**").hasRole("ADMIN")
-    //            .antMatchers("/api/v1/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/v1/notice/**").hasRole("MEMBER")
-                .antMatchers(HttpMethod.POST,"/api/v1/notice/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PATCH,"/api/vi/notice/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "api/vi/notice/**").hasRole("ADMIN")
 
+                .antMatchers("/api/v1/board/**").permitAll()
+                .antMatchers("/api/v1/notice/**").permitAll()
+                .antMatchers("/api/v1/todo/**").permitAll()
+
+//                .antMatchers(HttpMethod.GET, "/api/v1/notice/**").permitAll()
+//                .antMatchers(HttpMethod.POST,"/api/v1/notice/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.PATCH,"/api/vi/notice/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE, "api/vi/notice/**").hasRole("ADMIN")
+
+    //            .antMatchers("/api/v1/**").permitAll()
 //                .antMatchers("/api/v1/mypage/**").permitAll()
+//                .antMatchers("/api/v1/board/update/**").permitAll()
+//                .antMatchers("/api/v1/board/delete/**").permitAll()
 //
                 .antMatchers("/api/**").hasAnyRole("MEMBER", "ADMIN")
 

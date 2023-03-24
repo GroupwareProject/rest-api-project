@@ -58,9 +58,6 @@ public class MemberService {
     //  회원 수정(관리자모드)
     @Transactional
     public Object updateMember(MemberDTO memberDTO) {
-        log.info("[MemberService] updateMember Start ======");
-        System.out.println("memberDTO =============================== " + memberDTO);
-
         int result = 0;
 
         try {

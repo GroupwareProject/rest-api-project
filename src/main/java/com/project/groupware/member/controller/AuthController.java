@@ -32,11 +32,13 @@ public class AuthController {
                 .body(new ResponseDTO(HttpStatus.OK, "로그인 성공", authService.login(memberDTO)));
     }
 
-    @Operation(summary = "신규 직원 등록 요청", description = "신규 직원 가입이 진행됩니다.", tags = {"AuthController"})
+    @Operation(summary = "신규 직원 등록 요청",
+            description = "신규 직원 가입이 진행됩니다.", tags = {"AuthController"})
     @PostMapping("/signup")
     public ResponseEntity<ResponseDTO> signup(@RequestBody MemberDTO memberDTO) {
         return ResponseEntity
                 .ok()
-                .body(new ResponseDTO(HttpStatus.CREATED, "신규 직원 가입성공", authService.registMember(memberDTO)));
+                .body(new ResponseDTO(HttpStatus.CREATED,
+                        "신규 직원 가입성공", authService.registMember(memberDTO)));
     }
 }

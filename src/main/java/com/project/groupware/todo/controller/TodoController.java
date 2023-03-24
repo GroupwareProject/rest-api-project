@@ -34,7 +34,7 @@ public class TodoController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회성공",selectTodoList));
     }
     @Operation(summary = "todo 상세조회 요청", description = "todo 상세페이지 조회를 요청합니다.")
-    @GetMapping("/todo/{todoNo}")
+    @GetMapping("/todo/detail/{todoNo}")
     public ResponseEntity<ResponseDTO> todoSelect(@PathVariable Long todoNo) {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"조회성공",todoService.selectTodo(todoNo)));

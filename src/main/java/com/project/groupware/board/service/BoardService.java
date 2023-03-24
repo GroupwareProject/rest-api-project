@@ -45,7 +45,8 @@ public class BoardService {
 
         List<Board> selectBoardList = boardRepository.findAll();
 
-        return selectBoardList.stream().map(board -> modelMapper.map(board, BoardDTO.class)).collect(Collectors.toList());
+        return selectBoardList.stream().map(board ->
+                modelMapper.map(board, BoardDTO.class)).collect(Collectors.toList());
     }
 
     /* 게시글 전체 조회 */
@@ -101,6 +102,35 @@ public class BoardService {
 
             return (result > 0) ? "개시글 수정 성공 :)" : "게시글 수정 실패 :(";
     }
+
+//    확인용(수정)
+//    @Transactional
+//    public Object updateBoardList(BoardDTO boardDTO) {
+//        log.info("[BoardService] updateBoard Start");
+//        System.out.println("boardDTO ==================== " + boardDTO);
+//
+//        int result = 0;
+//
+//        try {
+//            Board board = boardRepository.findByBoardNo(boardDTO.getBoardNo());
+//
+//            board.setBoardNo(boardDTO.getBoardNo());
+//            board.setMemberCode(boardDTO.getMemberCode());
+//            board.setBoardTitle(boardDTO.getBoardTitle());
+//            board.setBoardContent(boardDTO.getBoardContent());
+//            board.setBoardViews(boardDTO.getBoardViews());
+//            board.setBoardDate(boardDTO.getBoardDate());
+//
+//            boardRepository.save(board);
+//
+//            result = 1;
+//        } catch (Exception e) {
+//            log.info("[board update] Exception!!!!!");
+//        }
+//            log.info("[BoardService] updateBoard End");
+//
+//            return (result > 0) ? "개시글 수정 성공 :)" : "게시글 수정 실패 :(";
+//    }
 
     @Transactional
     public String deleteBoardList(long boardNo) {

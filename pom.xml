@@ -120,7 +120,7 @@
             Swagger = Tools for implementing the specification
 
             확인을 위한 링크
-            http://localhost:8080/swagger-ui/index.html
+            http://localhost:8282/swagger-ui/index.html
         -->
 		<!-- open api3 -->
 		<dependency>

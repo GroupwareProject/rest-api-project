@@ -22,21 +22,26 @@ public class BoardController {
     public BoardController(BoardService boardService) { this.boardService = boardService; }
 
     /* 게시글 조회 */
-    @Operation(summary = "게시글 조회 요청", description = "게시글 한 개 조회됩니다.", tags = {"BoardController"})
+    @Operation(summary = "게시글 조회 요청",
+            description = "게시글 한 개 조회됩니다.", tags = {"BoardController"})
     @GetMapping("/board/{boardNo}")
     public ResponseEntity<ResponseDTO> selectBoardList(@PathVariable int boardNo){
 
         System.out.println("boardNo ==================== " + boardNo);
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "게시글 조회 성공", boardService.selectBoardList(boardNo)));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,
+                "게시글 조회 성공", boardService.selectBoardList(boardNo)));
     }
 
     /* 게시글 전체 조회 */
+    @Operation(summary = "게시글 리스트 조회 요청",
+            description = "게시글 리스트 조회됩니다.", tags = {"BoardController"})
     @GetMapping("/board")
     public ResponseEntity<ResponseDTO> boardList() {
 
         List<BoardDTO> searchBoardList = boardService.searchBoardList();
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회성공", searchBoardList));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,
+                "조회성공", searchBoardList));
     }
 
     /* 게시글 전체 조회 */
@@ -50,10 +55,12 @@ public class BoardController {
 //    }
 
     /* 게시글 등록 */
-    @Operation(summary = " 신규 게시판글 등록 요청", description = " 신규 게시판글 등록이 진행됩니다.", tags = { "BoardController"})
+    @Operation(summary = " 신규 게시판글 등록 요청",
+            description = " 신규 게시판글 등록이 진행됩니다.", tags = { "BoardController"})
     @PostMapping(value = "/board/write")
     public ResponseEntity<ResponseDTO> insertBoard(@RequestBody BoardDTO boardDTO){
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.CREATED, "신규 게시글 등록 성공", boardService.insertBoard(boardDTO)));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.CREATED,
+                "신규 게시글 등록 성공", boardService.insertBoard(boardDTO)));
     }
 
     /* 게시글 수정 */
@@ -66,6 +73,17 @@ public class BoardController {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "게시글 수정 성공", boardService.updateBoardList(boardDTO, boardNo)));
     }
+
+//    확인용 (수정)
+//    @Operation(summary = "게시글 수정 요청", description = "게시글이 수정되었습니다.", tags = {"BoardController"})
+//    @PutMapping("/board/update")
+//    public ResponseEntity<ResponseDTO> updateBoard(@ModelAttribute BoardDTO boardDTO){
+//
+//        System.out.println("게시글 수정 컨트롤러 입니다.");
+//        System.out.println("memberDTO ========== " + boardDTO);
+//
+//        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "게시글 수정 성공", boardService.updateBoardList(boardDTO)));
+//    }
 
     /* 게시글 삭제 */
     @Operation(summary = "게시글 삭제 요청", description = "게시글이 삭제됩니다.", tags = {"BoardController"})
