@@ -54,28 +54,29 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/").authenticated()
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+
+//                공지사항
+                .antMatchers(HttpMethod.GET, "/api/v1/notice/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/v1/notice/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PATCH,"/api/vi/notice/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "api/vi/notice/**").hasRole("ADMIN")
+
+//                게시판
+                .antMatchers("/api/v1/board/**").permitAll()
+
+//                일정등록
+                .antMatchers("/api/v1/todo/**").permitAll()
+
+//                사원
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/api/v1/members/**").permitAll()
                 .antMatchers("/api/v1/members/update/**").permitAll()
                 .antMatchers("/api/v1/members/delete/**").permitAll()
+
+//                회원가입
                 .antMatchers(HttpMethod.POST,"/auth/signup/**").hasRole("ADMIN")
 
-                .antMatchers("/api/v1/board/**").permitAll()
-                .antMatchers("/api/v1/notice/**").permitAll()
-                .antMatchers("/api/v1/todo/**").permitAll()
-
-//                .antMatchers(HttpMethod.GET, "/api/v1/notice/**").permitAll()
-//                .antMatchers(HttpMethod.POST,"/api/v1/notice/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PATCH,"/api/vi/notice/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE, "api/vi/notice/**").hasRole("ADMIN")
-
-    //            .antMatchers("/api/v1/**").permitAll()
-//                .antMatchers("/api/v1/mypage/**").permitAll()
-//                .antMatchers("/api/v1/board/update/**").permitAll()
-//                .antMatchers("/api/v1/board/delete/**").permitAll()
-//
                 .antMatchers("/api/**").hasAnyRole("MEMBER", "ADMIN")
-
 
                 .and()
                 .sessionManagement()
@@ -87,7 +88,6 @@ public class SecurityConfig {
                 .apply(new JwtSecurityConfig(tokenProvider));
 
         return http.build();
-
     }
 
     @Bean
